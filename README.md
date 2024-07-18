@@ -19,7 +19,7 @@ Weather App - это веб-приложение, разработанное н�
 ### 1. Клонируйте репозиторий
 ```bash
 git clone https://github.com/yarstein/app_Django_get_weather.git
-cd weather_app
+cd weather_project
 ```
 ### 2. Создайте виртуальное окружение
 ```bash
