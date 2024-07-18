@@ -11,7 +11,7 @@ Weather App - это веб-приложение, разработанное н�
 * Город Ташкент выбран как город по умолчанию.
 
 <p align="center">
-  <img src="https://github.com/yarstein/weather_top.png" alt='Zakaz'></a>
+  <img src="https://github.com/yarstein/app_Django_get_weather/weather_top.png" alt='Zakaz'></a>
 </p>
 
 ## Установка
