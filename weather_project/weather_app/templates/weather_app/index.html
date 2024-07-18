@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз погоды</title>
+
+    <link rel="stylesheet" href="{% static 'weather_app/css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+
+        <h1>Прогноз погоды</h1>
+
+        <div class="city-errors">
+            {% for error in form.non_field_errors %}
+                <p><b>{{ error }}</b></p>
+            {% endfor %}
+        </div>
+
+        <form action="" method="post" class="city-form">
+            {% csrf_token %}
+            {{ form.city }}
+            <button type="submit" class="submit-button">Получить</button>
+        </form>
+
+        {% if not form.non_field_errors %}
+            <div class="current-weather">
+                <h2>{{ city_name }}, {{ country_name }}</h2>
+                <img style="width: 32px; height: 32px;" src="{% static 'weather_app/icons/' %}{{ hourly_data.0.icon }}" alt="Иконка погоды">
+                <p>Текущая температура: <b>{{ current_temperature }}°C</b>, <b><i>{{ current_date }}</i></b></p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        {% for entry in hourly_data %}
+                            <th>{{ entry.formatted_time }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for entry in hourly_data %}
+                            <td>
+                                {% if entry.icon != "unknown.png" %}
+                                    <img src="{% static 'weather_app/icons/' %}{{ entry.icon }}" alt="Иконка погоды">
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        {% for entry in hourly_data %}
+                            <td>{{ entry.temperature_2m }} °C</td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+
+            {% if cities_data %}
+                <div class="search-history">
+                    <h2>История поиска:</h2>
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Город</th>
+                                <th>Кол-во просмотров</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for city, data in cities_data.items %}
+                                <tr>
+                                    <td>{{ city }}</td>
+                                    <td>{{ data.count }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        {% endif %}
+
+    </div>
+</body>
+</html>
+</html>
